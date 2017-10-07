@@ -13,9 +13,12 @@
 		A6BF88DE1F88802000F059C1 /* Listen_Moe.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A6BF88DC1F88802000F059C1 /* Listen_Moe.xcdatamodeld */; };
 		A6BF88E01F88802000F059C1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A6BF88DF1F88802000F059C1 /* Assets.xcassets */; };
 		A6BF88E31F88802000F059C1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6BF88E11F88802000F059C1 /* LaunchScreen.storyboard */; };
+		FAC787619E4C620AE7A94342 /* Pods_Listen_Moe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB6983EF5B15568C74706CDE /* Pods_Listen_Moe.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6C346C6BD45D492106E4B314 /* Pods-Listen.Moe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Listen.Moe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Listen.Moe/Pods-Listen.Moe.debug.xcconfig"; sourceTree = "<group>"; };
+		6E3EAA2DAF0DB44172DABFBA /* Pods-Listen.Moe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Listen.Moe.release.xcconfig"; path = "Pods/Target Support Files/Pods-Listen.Moe/Pods-Listen.Moe.release.xcconfig"; sourceTree = "<group>"; };
 		A6BF88D21F88801F00F059C1 /* Listen.Moe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Listen.Moe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6BF88D51F88802000F059C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A6BF88D71F88802000F059C1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -24,6 +27,7 @@
 		A6BF88DF1F88802000F059C1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A6BF88E21F88802000F059C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A6BF88E41F88802000F059C1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CB6983EF5B15568C74706CDE /* Pods_Listen_Moe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Listen_Moe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +35,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAC787619E4C620AE7A94342 /* Pods_Listen_Moe.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4AACA55E3D189369AE90D086 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CB6983EF5B15568C74706CDE /* Pods_Listen_Moe.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A6BF88C91F88801F00F059C1 = {
 			isa = PBXGroup;
 			children = (
 				A6BF88D41F88802000F059C1 /* Listen.Moe */,
 				A6BF88D31F88802000F059C1 /* Products */,
+				DA7BC798D2C73777659680D0 /* Pods */,
+				4AACA55E3D189369AE90D086 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -67,6 +82,15 @@
 			path = Listen.Moe;
 			sourceTree = "<group>";
 		};
+		DA7BC798D2C73777659680D0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6C346C6BD45D492106E4B314 /* Pods-Listen.Moe.debug.xcconfig */,
+				6E3EAA2DAF0DB44172DABFBA /* Pods-Listen.Moe.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,9 +98,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A6BF88E71F88802000F059C1 /* Build configuration list for PBXNativeTarget "Listen.Moe" */;
 			buildPhases = (
+				2DAF6E1ABF30AA5B153257F3 /* [CP] Check Pods Manifest.lock */,
 				A6BF88CE1F88801F00F059C1 /* Sources */,
 				A6BF88CF1F88801F00F059C1 /* Frameworks */,
 				A6BF88D01F88801F00F059C1 /* Resources */,
+				7F754FC14130F2548435FF66 /* [CP] Embed Pods Frameworks */,
+				2B4675642BEFF4BF1E289910 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -133,6 +160,60 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2B4675642BEFF4BF1E289910 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Listen.Moe/Pods-Listen.Moe-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2DAF6E1ABF30AA5B153257F3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Listen.Moe-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7F754FC14130F2548435FF66 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Listen.Moe/Pods-Listen.Moe-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Listen.Moe/Pods-Listen.Moe-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A6BF88CE1F88801F00F059C1 /* Sources */ = {
@@ -276,6 +357,7 @@
 		};
 		A6BF88E81F88802000F059C1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6C346C6BD45D492106E4B314 /* Pods-Listen.Moe.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -291,6 +373,7 @@
 		};
 		A6BF88E91F88802000F059C1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6E3EAA2DAF0DB44172DABFBA /* Pods-Listen.Moe.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

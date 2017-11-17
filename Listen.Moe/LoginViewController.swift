@@ -10,11 +10,16 @@ import UIKit
 
 class LoginViewController: UIViewController {
 
+    var loggedIn:Bool = false
+    
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var password: UITextField!
     
     @IBAction func loginBtn(_ sender: Any) {
-        
+        if username.text != "" && password.text != "" {
+            login(username: username.text!, password: password.text!)
+            let _ = self.navigationController?.popViewController(animated: true)
+        }
     }
     
     override func viewDidLoad() {
@@ -32,6 +37,29 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func login(username:String, password:String){
+        var request = URLRequest(url: URL(string: "https://listen.moe/api/authenticate")!)
+        request.httpMethod = "POST"
+        let postString = "username=\(username)&password=\(password)"
+        request.httpBody = postString.data(using: .utf8)
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {                                                 // check for fundamental networking error
+                print(error?.localizedDescription as Any)
+                return
+            }
+            
+            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
+//                print("statusCode should be 200, but is \(httpStatus.statusCode)")
+//                print("response = \(response)")
+                
+            }
+            
+            let responseString = String(data: data, encoding: .utf8)
+//            print("responseString = \(responseString)")
+            
+        }
+        task.resume()
+    }
 
     /*
     // MARK: - Navigation

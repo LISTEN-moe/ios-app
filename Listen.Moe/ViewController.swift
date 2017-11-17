@@ -152,7 +152,8 @@ extension ViewController : WebSocketDelegate {
             SongTitle.text = base.song_name
             Artist.text = base.artist_name
         } catch let jsonError {
-            print("JSON Error: ", jsonError)
+//            print(text)
+//            print("JSON Error: ", jsonError)
         }
     }
     

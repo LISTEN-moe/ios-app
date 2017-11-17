@@ -59,12 +59,12 @@ class ViewController: UIViewController {
         if (playing){
             player.pause()
             playing = false
-            playBtn.setTitle("Play", for: .normal)
+            playBtn.setImage(#imageLiteral(resourceName: "Play"), for: .normal)
         }
         else{
             player.play()
             playing = true
-            playBtn.setTitle("Pause", for: .normal)
+            playBtn.setImage(#imageLiteral(resourceName: "Pause"), for: .normal)
         }
     }
     
@@ -75,6 +75,13 @@ class ViewController: UIViewController {
         socket.connect()
         prepareAudio()
         getData()
+        UIApplication.shared.statusBarStyle = .lightContent
+        
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.view.backgroundColor = UIColor.clear
+        self.navigationItem.rightBarButtonItem?.tintColor = UIColor(red: 255/255, green: 27/255, blue: 38/255, alpha: 1.0)
     }
     
     deinit {
@@ -134,6 +141,7 @@ extension ViewController : WebSocketDelegate {
     
     func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
         print("websocket is disconnected: \(String(describing: error?.localizedDescription))")
+        socket.connect()
     }
     
     func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
@@ -155,5 +163,9 @@ extension ViewController : WebSocketDelegate {
 //        } catch let jsonError {
 //            print("JSON Error: ", jsonError)
 //        }
+    }
+    
+    func prefersStatusBarHidden() -> Bool {
+        return true
     }
 }

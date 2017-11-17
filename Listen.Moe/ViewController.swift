@@ -81,7 +81,7 @@ class ViewController: UIViewController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.view.backgroundColor = UIColor.clear
-        self.navigationItem.rightBarButtonItem?.tintColor = UIColor(red: 255/255, green: 27/255, blue: 38/255, alpha: 1.0)
+        self.navigationItem.rightBarButtonItem?.tintColor = UIColor(red: 234/255, green: 33/255, blue: 88/255, alpha: 1.0)
     }
     
     deinit {

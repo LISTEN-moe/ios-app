@@ -8,9 +8,12 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+struct Response: Codable {
+    var success: Bool
+    var token: String
+}
 
-    var loggedIn:Bool = false
+class LoginViewController: UIViewController {
     
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var password: UITextField!
@@ -18,7 +21,6 @@ class LoginViewController: UIViewController {
     @IBAction func loginBtn(_ sender: Any) {
         if username.text != "" && password.text != "" {
             login(username: username.text!, password: password.text!)
-            let _ = self.navigationController?.popViewController(animated: true)
         }
     }
     
@@ -29,7 +31,7 @@ class LoginViewController: UIViewController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.view.backgroundColor = UIColor.clear
-        self.navigationController?.navigationBar.tintColor = UIColor(red: 255/255, green: 27/255, blue: 38/255, alpha: 1.0)
+        self.navigationController?.navigationBar.tintColor = UIColor(red: 234/255, green: 33/255, blue: 88/255, alpha: 1.0)
     }
 
     override func didReceiveMemoryWarning() {
@@ -38,6 +40,7 @@ class LoginViewController: UIViewController {
     }
     
     func login(username:String, password:String){
+        
         var request = URLRequest(url: URL(string: "https://listen.moe/api/authenticate")!)
         request.httpMethod = "POST"
         let postString = "username=\(username)&password=\(password)"
@@ -49,16 +52,29 @@ class LoginViewController: UIViewController {
             }
             
             if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
-//                print("statusCode should be 200, but is \(httpStatus.statusCode)")
-//                print("response = \(response)")
+                print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                print("response = \(response)")
                 
             }
             
             let responseString = String(data: data, encoding: .utf8)
-//            print("responseString = \(responseString)")
+            print("responseString = \(responseString)")
             
+            let info = try? JSONDecoder().decode(Response.self, from: data)
+            if info?.success == true {
+                DispatchQueue.main.async() { () -> Void in
+                    self.goAwayLogin()
+                }
+            } else {
+                
+            }
         }
         task.resume()
+        
+    }
+    
+    func goAwayLogin () {
+        let _ = self.navigationController?.popViewController(animated: true)
     }
 
     /*

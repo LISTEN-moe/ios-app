@@ -15,6 +15,7 @@ struct Response: Codable {
 
 class LoginViewController: UIViewController {
     
+    @IBOutlet weak var invalid: UILabel!
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var password: UITextField!
     
@@ -62,11 +63,15 @@ class LoginViewController: UIViewController {
             
             let info = try? JSONDecoder().decode(Response.self, from: data)
             if info?.success == true {
+                
                 DispatchQueue.main.async() { () -> Void in
+                    self.invalid.isHidden = true;
                     self.goAwayLogin()
                 }
             } else {
-                
+                DispatchQueue.main.async() { () -> Void in
+                    self.invalid.isHidden = false;
+                }
             }
         }
         task.resume()

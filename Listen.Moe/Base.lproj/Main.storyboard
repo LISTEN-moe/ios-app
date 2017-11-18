@@ -64,6 +64,14 @@
                                     <action selector="playAudio:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yxy-xR-mIA"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yHB-In-wME">
+                                <rect key="frame" x="239" y="422" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="favBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1A4-I4-8cu"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -95,6 +103,7 @@
                         <outlet property="Artist" destination="PBh-Ph-scG" id="1we-3I-Ubn"/>
                         <outlet property="SongTitle" destination="K3P-CO-RgK" id="l7E-sr-vGu"/>
                         <outlet property="playBtn" destination="NNW-40-cUq" id="RNd-S0-ucn"/>
+                        <outlet property="rightBtn" destination="R9B-Wh-gHT" id="ftP-aJ-bNj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -142,11 +151,19 @@
                                     <action selector="loginBtn:" destination="jNH-5u-be1" eventType="touchUpInside" id="ga3-AX-Iog"/>
                                 </connections>
                             </button>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Invalid Username/Password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Auj-NL-sDn">
+                                <rect key="frame" x="16" y="222" width="343" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.1054872107" blue="0.3286866705" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="yzv-FR-woF"/>
                     </view>
                     <connections>
+                        <outlet property="invalid" destination="Auj-NL-sDn" id="zCa-5A-pyX"/>
                         <outlet property="password" destination="9ah-eT-xTH" id="f0a-Yd-yix"/>
                         <outlet property="username" destination="Gza-Xo-WLD" id="M5A-5l-46f"/>
                     </connections>

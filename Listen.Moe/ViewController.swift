@@ -47,6 +47,10 @@ struct Queue: Decodable {
 
 class ViewController: UIViewController {
     
+    var username:String?
+    
+    @IBOutlet weak var rightBtn: UIBarButtonItem!
+    
     var socket = WebSocket(url: URL(string: "wss://listen.moe/api/v2/socket")!)
     var player = AVPlayer()
     var playing:Bool = false
@@ -54,6 +58,28 @@ class ViewController: UIViewController {
     @IBOutlet var SongTitle: UILabel!
     @IBOutlet var Artist: UILabel!
     @IBOutlet weak var playBtn: UIButton!
+    
+    
+    @IBAction func favBtn(_ sender: Any) {
+        let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsInVzZXJuYW1lIjoiQ292ZSIsImlhdCI6MTUxMDk3MzMwNywiZXhwIjoxNTEzNTY1MzA3fQ.eKSgw5MntMJFFVOX99L-Wh6lbNphrUyICqYzKb3fros"
+        var request = URLRequest(url: URL(string: "https://listen.moe/api/user/favorites?token=\(token)")!)
+        request.httpMethod = "GET"
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data, error == nil else {                                                 // check for fundamental networking error
+                print(error?.localizedDescription as Any)
+                return
+            }
+            
+            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
+                print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                print("response = \(response)")
+            }
+            
+            let responseString = String(data: data, encoding: .utf8)
+            print("responseString = \(responseString)")
+        }
+        task.resume()
+    }
     
     @IBAction func playAudio(_ sender: Any) {
         if (playing){
@@ -82,7 +108,15 @@ class ViewController: UIViewController {
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.view.backgroundColor = UIColor.clear
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor(red: 234/255, green: 33/255, blue: 88/255, alpha: 1.0)
+//        self.navigationItem.rightBarButtonItem?.title = "poop"
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if username != nil {
+            self.navigationItem.rightBarButtonItem?.title = username
+        }
+    }
+        
     
     deinit {
         socket.disconnect(forceTimeout: 0)
@@ -132,6 +166,10 @@ class ViewController: UIViewController {
 //            }
 //        }.resume()
     }
+    
+//    func prefersStatusBarHidden() -> Bool {
+//        return true
+//    }
 }
 
 extension ViewController : WebSocketDelegate {
@@ -164,9 +202,5 @@ extension ViewController : WebSocketDelegate {
 //        } catch let jsonError {
 //            print("JSON Error: ", jsonError)
 //        }
-    }
-    
-    func prefersStatusBarHidden() -> Bool {
-        return true
     }
 }

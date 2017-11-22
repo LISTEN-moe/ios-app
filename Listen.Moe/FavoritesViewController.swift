@@ -39,6 +39,7 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let song = songs[indexPath.row]
         cell.textLabel?.text = song.title
+        cell.detailTextLabel?.text = song.artist
         return cell
     }
     
@@ -76,7 +77,7 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
 //            print("responseString = \(responseString)")
             let base = try? JSONDecoder().decode(favorite.self, from:data)
             if (base?.success)! {
-                self.songs = (base?.songs)!
+                self.songs = (base?.songs)!.sorted(by: {$0.title < $1.title})
                 DispatchQueue.main.async() { () -> Void in
                     if self.songs.count == 0 {
                         

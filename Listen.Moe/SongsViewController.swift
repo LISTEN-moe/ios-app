@@ -22,6 +22,7 @@ class SongsViewController: UIViewController , UITableViewDelegate, UITableViewDa
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let song = songs[indexPath.row]
         cell.textLabel?.text = song.title
+        cell.detailTextLabel?.text = song.artist
         return cell
     }
     
@@ -59,14 +60,14 @@ class SongsViewController: UIViewController , UITableViewDelegate, UITableViewDa
             //            print("responseString = \(responseString)")
             let base = try? JSONDecoder().decode(favorite.self, from:data)
             if (base?.success)! {
-                self.songs = (base?.songs)!
+                self.songs = (base?.songs)!.sorted(by: {$0.title < $1.title})
                 DispatchQueue.main.async() { () -> Void in
-                    if self.songs.count == 0 {
-                        
-                        let alert = UIAlertController(title: "Oh", message: "You have no favorites yet", preferredStyle: UIAlertControllerStyle.alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-                        self.present(alert, animated: true, completion: nil)
-                    }
+//                    if self.songs.count == 0 {
+//
+//                        let alert = UIAlertController(title: "Oh", message: "You have no favorites yet", preferredStyle: UIAlertControllerStyle.alert)
+//                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+//                        self.present(alert, animated: true, completion: nil)
+//                    }
                     self.tableView.reloadData()
                 }
             }

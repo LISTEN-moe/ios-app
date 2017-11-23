@@ -63,7 +63,8 @@ class LoginViewController: UIViewController {
             
             let info = try? JSONDecoder().decode(Response.self, from: data)
             if info?.success == true {
-                
+                let userDefaults = UserDefaults.standard
+                userDefaults.set(info?.token, forKey: "token")
                 DispatchQueue.main.async() { () -> Void in
                     self.invalid.isHidden = true;
                     self.goAwayLogin()

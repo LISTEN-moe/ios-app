@@ -45,6 +45,12 @@ struct Queue: Decodable {
     let userSongsInQueue: Int?
 }
 
+struct user: Decodable {
+    let success: Bool
+    let id: Int
+    let username: String
+}
+
 class ViewController: UIViewController {
     
     var username:String?
@@ -59,11 +65,14 @@ class ViewController: UIViewController {
     @IBOutlet var Artist: UILabel!
     @IBOutlet weak var playBtn: UIButton!
     
+    @IBOutlet weak var viewFavorites: UIButton!
+    @IBOutlet weak var requestBtn: UIButton!
+    @IBOutlet weak var favorite: UIButton!
     
     @IBAction func favBtn(_ sender: Any) {
         
     }
-    
+   
     
     @IBAction func playAudio(_ sender: Any) {
         if (playing){
@@ -96,11 +105,64 @@ class ViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if username != nil {
-            self.navigationItem.rightBarButtonItem?.title = username
+        
+        let userDefaults = UserDefaults.standard
+//        if (userDefaults.object(forKey: "token") as? String) != nil {
+//            loggedInUI(log: true)
+////            let token = userDefaults.object(forKey: "token") as! String
+////            print(token)
+//        } else {
+//            loggedInUI(log: false)
+        stillLoggedIn()
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
+    func loggedInUI(log: Bool) {
+        viewFavorites.isEnabled = log
+        favorite.isEnabled = log
+        requestBtn.isEnabled = log
+        viewFavorites.isHidden = !log
+        favorite.isHidden = !log
+        requestBtn.isHidden = !log
+        self.navigationController?.setNavigationBarHidden(log, animated: false)
+    }
+    
+    func stillLoggedIn() {
+        let userDefaults = UserDefaults.standard
+        if let token = userDefaults.object(forKey: "token") as? String {
+            var request = URLRequest(url: (URL(string: "https://listen.moe/api/user?token=\(token)"))!)
+            request.httpMethod = "GET"
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                guard let data = data, error == nil else {                                                 // check for fundamental networking error
+                    print(error?.localizedDescription as Any)
+                    return
+                }
+                
+                if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
+                    print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                    print("response = \(String(describing: response))")
+                }
+                //
+                            let responseString = String(data: data, encoding: .utf8)
+                            print("asdasjdnakfjadsfasjbfasjdfas")
+                            print("responseString = \(responseString)")
+                let base = try? JSONDecoder().decode(user.self, from:data)
+                
+                DispatchQueue.main.async() { () -> Void in
+                    if (base?.success)! {
+                            self.loggedInUI(log: true)
+                    } else {
+                        self.loggedInUI(log: false)
+                    }
+                }
+            }
+            task.resume()
         }
     }
-        
     
     deinit {
         socket.disconnect(forceTimeout: 0)

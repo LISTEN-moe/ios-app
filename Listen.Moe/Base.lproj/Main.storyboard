@@ -65,7 +65,7 @@
                                     <action selector="playAudio:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yxy-xR-mIA"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u6K-3H-sSo">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u6K-3H-sSo">
                                 <rect key="frame" x="16" y="349" width="129" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Request a Song">
@@ -75,7 +75,7 @@
                                     <segue destination="BdQ-sU-pDY" kind="show" id="kpG-pG-JGb"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H7O-X1-A4N">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H7O-X1-A4N">
                                 <rect key="frame" x="164" y="349" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title=" ❤️"/>
@@ -83,7 +83,7 @@
                                     <action selector="favBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zpY-8i-lyh"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yHB-In-wME">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yHB-In-wME">
                                 <rect key="frame" x="296" y="349" width="63" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Favorites">
@@ -123,8 +123,11 @@
                     <connections>
                         <outlet property="Artist" destination="PBh-Ph-scG" id="1we-3I-Ubn"/>
                         <outlet property="SongTitle" destination="K3P-CO-RgK" id="l7E-sr-vGu"/>
+                        <outlet property="favorite" destination="H7O-X1-A4N" id="Uoz-nv-j5Z"/>
                         <outlet property="playBtn" destination="NNW-40-cUq" id="RNd-S0-ucn"/>
+                        <outlet property="requestBtn" destination="u6K-3H-sSo" id="U7F-uv-Rlv"/>
                         <outlet property="rightBtn" destination="R9B-Wh-gHT" id="ftP-aJ-bNj"/>
+                        <outlet property="viewFavorites" destination="yHB-In-wME" id="kQG-lu-bYH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -72,7 +72,17 @@ class ViewController: UIViewController {
     @IBAction func favBtn(_ sender: Any) {
         
     }
-   
+    
+    @IBAction func logoutBtn(_ sender: Any) {
+        if self.navigationItem.rightBarButtonItem?.title == "Login" {
+            performSegue(withIdentifier: "login", sender: self)
+        } else {
+            loggedInUI(log: false)
+            let userDefaults = UserDefaults.standard
+            userDefaults.removeObject(forKey: "token")
+        }
+    }
+    
     
     @IBAction func playAudio(_ sender: Any) {
         if (playing){
@@ -101,7 +111,6 @@ class ViewController: UIViewController {
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.view.backgroundColor = UIColor.clear
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor(red: 234/255, green: 33/255, blue: 88/255, alpha: 1.0)
-//        self.navigationItem.rightBarButtonItem?.title = "poop"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -128,7 +137,11 @@ class ViewController: UIViewController {
         viewFavorites.isHidden = !log
         favorite.isHidden = !log
         requestBtn.isHidden = !log
-        self.navigationController?.setNavigationBarHidden(log, animated: false)
+        if log == true {
+            self.navigationItem.rightBarButtonItem?.title = "Logout"
+        } else {
+            self.navigationItem.rightBarButtonItem?.title = "Login"
+        }
     }
     
     func stillLoggedIn() {

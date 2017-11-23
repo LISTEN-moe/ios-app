@@ -116,7 +116,7 @@
                         <barButtonItem key="backBarButtonItem" title="Cancel" id="rRq-DC-2cD"/>
                         <barButtonItem key="rightBarButtonItem" title="Login" id="R9B-Wh-gHT">
                             <connections>
-                                <segue destination="jNH-5u-be1" kind="show" id="IRp-lh-EGL"/>
+                                <action selector="logoutBtn:" destination="BYZ-38-t0r" id="ecc-ae-ui1"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -128,6 +128,7 @@
                         <outlet property="requestBtn" destination="u6K-3H-sSo" id="U7F-uv-Rlv"/>
                         <outlet property="rightBtn" destination="R9B-Wh-gHT" id="ftP-aJ-bNj"/>
                         <outlet property="viewFavorites" destination="yHB-In-wME" id="kQG-lu-bYH"/>
+                        <segue destination="jNH-5u-be1" kind="show" identifier="login" id="ZSp-hI-8bC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

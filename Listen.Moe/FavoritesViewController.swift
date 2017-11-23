@@ -2,7 +2,6 @@
 //  FavoritesViewController.swift
 //  Listen.Moe
 //
-//  Created by Kelson Vella on 11/17/17.
 //  Copyright © 2017 Disre. All rights reserved.
 //
 

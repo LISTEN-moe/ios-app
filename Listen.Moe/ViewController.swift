@@ -88,12 +88,12 @@ class ViewController: UIViewController {
         if (playing){
             player.pause()
             playing = false
-            playBtn.setImage(#imageLiteral(resourceName: "Play"), for: .normal)
+            playBtn.setImage(#imageLiteral(resourceName: "play"), for: .normal)
         }
         else{
             player.play()
             playing = true
-            playBtn.setImage(#imageLiteral(resourceName: "Pause"), for: .normal)
+            playBtn.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
         }
     }
     
@@ -111,6 +111,8 @@ class ViewController: UIViewController {
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.view.backgroundColor = UIColor.clear
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor(red: 234/255, green: 33/255, blue: 88/255, alpha: 1.0)
+        
+        playBtn.layer.cornerRadius = 0.5 * playBtn.bounds.size.width
     }
     
     override func viewWillAppear(_ animated: Bool) {

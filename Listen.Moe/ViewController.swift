@@ -131,8 +131,6 @@ class ViewController: UIViewController {
         socket.delegate = self
         socket.connect()
         prepareAudio()
-        getData()
-        
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -155,12 +153,6 @@ class ViewController: UIViewController {
         
         UIApplication.shared.statusBarStyle = .lightContent
         let userDefaults = UserDefaults.standard
-//        if (userDefaults.object(forKey: "token") as? String) != nil {
-//            loggedInUI(log: true)
-////            let token = userDefaults.object(forKey: "token") as! String
-////            print(token)
-//        } else {
-//            loggedInUI(log: false)
         stillLoggedIn()
     }
     
@@ -238,28 +230,6 @@ class ViewController: UIViewController {
         player.rate = 1.0
         player.pause()
     }
-    
-    func getData(){
-//        let jsonURL = "https://listen.moe/api/v2/socket"
-//        guard let url = URL(string: jsonURL) else
-//            {return}
-//
-//        URLSession.shared.dataTask(with: url) { (data, response, err) in
-//
-//            guard let data = data else {return}
-//
-//            do {
-//                let base = try JSONDecoder().decode(Base.self, from: data)
-//                print(base)
-//            } catch let jsonError {
-//                print("JSON Error: ", jsonError)
-//            }
-//        }.resume()
-    }
-    
-//    func prefersStatusBarHidden() -> Bool {
-//        return true
-//    }
 }
 
 extension ViewController : WebSocketDelegate {

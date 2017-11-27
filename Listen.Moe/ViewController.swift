@@ -53,6 +53,7 @@ struct user: Decodable {
 
 class ViewController: UIViewController {
     
+    var base:Base?
     var username:String?
     
     @IBOutlet weak var rightBtn: UIBarButtonItem!
@@ -70,7 +71,34 @@ class ViewController: UIViewController {
     @IBOutlet weak var favorite: UIButton!
     
     @IBAction func favBtn(_ sender: Any) {
-        
+        var request = URLRequest(url: URL(string: "https://listen.moe/api/songs/favorite")!)
+        request.httpMethod = "POST"
+        let userDefaults = UserDefaults.standard
+        if let token = userDefaults.object(forKey: "token") as? String {
+            if let song = base?.song_id {
+                let postString = "token=\(token)&song=\(song)"
+                print(postString)
+                request.httpBody = postString.data(using: .utf8)
+                request.httpMethod = "POST"
+                let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                    guard let data = data, error == nil else {                                                 // check for fundamental networking error
+                        print(error?.localizedDescription as Any)
+                        return
+                    }
+                    
+                    if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
+                        print("statusCode should be 200, but is \(httpStatus.statusCode)")
+                        print("response = \(response)")
+                        
+                    }
+                    let responseString = String(data: data, encoding: .utf8)
+                    print("responseString = \(responseString)")
+                    
+                    let info = try? JSONDecoder().decode(Response.self, from: data)
+                }
+                task.resume()
+            }
+        }
     }
     
     @IBAction func logoutBtn(_ sender: Any) {
@@ -104,7 +132,7 @@ class ViewController: UIViewController {
         socket.connect()
         prepareAudio()
         getData()
-        UIApplication.shared.statusBarStyle = .lightContent
+        
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -113,10 +141,19 @@ class ViewController: UIViewController {
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor(red: 234/255, green: 33/255, blue: 88/255, alpha: 1.0)
         
         playBtn.layer.cornerRadius = 0.5 * playBtn.bounds.size.width
+        
+        let session = AVAudioSession.sharedInstance()
+        do {
+            try session.setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
+            try session.setActive(true)
+        } catch let error as NSError{
+            print("Unable to activate audio session:  \(error.localizedDescription)")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         
+        UIApplication.shared.statusBarStyle = .lightContent
         let userDefaults = UserDefaults.standard
 //        if (userDefaults.object(forKey: "token") as? String) != nil {
 //            loggedInUI(log: true)
@@ -163,8 +200,8 @@ class ViewController: UIViewController {
                 }
                 //
                             let responseString = String(data: data, encoding: .utf8)
-                            print("asdasjdnakfjadsfasjbfasjdfas")
-                            print("responseString = \(responseString)")
+//                            print("asdasjdnakfjadsfasjbfasjdfas")
+//                            print("responseString = \(responseString)")
                 let base = try? JSONDecoder().decode(user.self, from:data)
                 
                 DispatchQueue.main.async() { () -> Void in
@@ -200,14 +237,6 @@ class ViewController: UIViewController {
         player = AVPlayer(playerItem:playerItem)
         player.rate = 1.0
         player.pause()
-        
-        let session = AVAudioSession.sharedInstance()
-        do {
-            try session.setCategory(AVAudioSessionCategoryPlayback, with: .mixWithOthers)
-            try session.setActive(true)
-        } catch let error as NSError{
-            print("Unable to activate audio session:  \(error.localizedDescription)")
-        }
     }
     
     func getData(){
@@ -246,10 +275,10 @@ extension ViewController : WebSocketDelegate {
     func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
         do {
             //for some reason cant decode arrays sees them as dictionarys
-            let base = try JSONDecoder().decode(Base.self, from: text.data(using: .utf8)!)
+            base = try JSONDecoder().decode(Base.self, from: text.data(using: .utf8)!)
 //            print(base)
-            SongTitle.text = base.song_name
-            Artist.text = base.artist_name
+            SongTitle.text = base?.song_name
+            Artist.text = base?.artist_name
         } catch let jsonError {
 //            print(text)
 //            print("JSON Error: ", jsonError)

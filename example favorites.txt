@@ -1,0 +1,22 @@
+{\"success\":true,
+\"songs\":
+	[{\"id\":112,
+	\"artist\":\"Dragon Ball Z\",
+	\"title\":\"Dan Dan Kokoro\",
+	\"album\":null,
+	\"anime\":\"\"},
+
+	{\"id\":1100,
+	\"artist\":\"Itou Kanako\",
+	\"title\":\"Hacking to the Gate\",
+	\"album\":null,
+	\"anime\":\"\"},
+
+	{\"id\":1318,
+	\"artist\":\"Japanese pop\",
+	\"title\":\"Let It Go ありのままで\",
+	\"album\":null,
+	\"anime\":\"Let It Go\"}],
+\"supporter\":true,
+\"extra\":
+	{\"requests\":5}}

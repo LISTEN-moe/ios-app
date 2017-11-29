@@ -112,7 +112,7 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let song = songSections[indexPath.section].songList[indexPath.row]
-            
+            songSections.removeAll()
             var request = URLRequest(url: URL(string: "https://listen.moe/api/songs/favorite")!)
             request.httpMethod = "POST"
             let userDefaults = UserDefaults.standard

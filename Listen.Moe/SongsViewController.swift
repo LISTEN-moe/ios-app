@@ -9,17 +9,39 @@ import UIKit
 
 class SongsViewController: UIViewController , UITableViewDelegate, UITableViewDataSource {
     
+    
+    var letters:[String] = []
+    
     var songs:[song] = []
+    
+    struct section {
+        var name:String
+        var songList:[song]
+    }
+    
+    var songSections:[section] = []
     
     @IBOutlet weak var tableView: UITableView!
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return letters[section]
+    }
+    
+    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        return letters
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return songSections.count
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return songs.count
+        return songSections[section].songList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        let song = songs[indexPath.row]
+        let song = songSections[indexPath.section].songList[indexPath.row]
         cell.textLabel?.text = song.title
         cell.detailTextLabel?.text = song.artist
         return cell
@@ -27,7 +49,7 @@ class SongsViewController: UIViewController , UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let song = songs[indexPath.row]
+        let song = songSections[indexPath.section].songList[indexPath.row]
         let requestMessage = UIAlertController(title: "Request Song", message: "Would you like to request \(song.title)?", preferredStyle: .alert)
         
         let yes = UIAlertAction(title: "Yes", style: .default, handler: { (action) -> Void in
@@ -108,8 +130,26 @@ class SongsViewController: UIViewController , UITableViewDelegate, UITableViewDa
                 //            let responseString = String(data: data, encoding: .utf8)
                 //            print("responseString = \(responseString)")
                 let base = try? JSONDecoder().decode(favorite.self, from:data)
+                
                 if (base?.success)! {
+                    
+                    
+                    //get first letters
+                    let letters = (base?.songs)!.map{ $0.titleFirstLetter}
+                    //remove duplicates
+                    let unique = Array(Set(letters))
+                    //sort
+                    self.letters = unique.sorted()
+                    
                     self.songs = (base?.songs)!.sorted(by: {$0.title < $1.title})
+                    
+                    for (key) in self.letters {
+                        print(key)
+                        let songs = self.songs.filter{$0.titleFirstLetter == key}
+                        let item = section(name: key, songList: songs)
+                        self.songSections.append(item)
+                    }
+                    
                     DispatchQueue.main.async() { () -> Void in
     //                    if self.songs.count == 0 {
     //

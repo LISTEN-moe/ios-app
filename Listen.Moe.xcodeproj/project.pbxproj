@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		A60686DF1FBFDE3E00908563 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60686DE1FBFDE3E00908563 /* FavoritesViewController.swift */; };
 		A651ED4E1FC5213D0052CF44 /* SongsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A651ED4D1FC5213D0052CF44 /* SongsViewController.swift */; };
+		A680947F1FCE33F800F5EC45 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A680947E1FCE33F800F5EC45 /* ResetPasswordViewController.swift */; };
+		A68094811FCE341100F5EC45 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68094801FCE341100F5EC45 /* RegisterViewController.swift */; };
 		A6BF88D61F88802000F059C1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BF88D51F88802000F059C1 /* AppDelegate.swift */; };
 		A6BF88D81F88802000F059C1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6BF88D71F88802000F059C1 /* ViewController.swift */; };
 		A6BF88DB1F88802000F059C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6BF88D91F88802000F059C1 /* Main.storyboard */; };
@@ -24,6 +26,8 @@
 		6E3EAA2DAF0DB44172DABFBA /* Pods-Listen.Moe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Listen.Moe.release.xcconfig"; path = "Pods/Target Support Files/Pods-Listen.Moe/Pods-Listen.Moe.release.xcconfig"; sourceTree = "<group>"; };
 		A60686DE1FBFDE3E00908563 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		A651ED4D1FC5213D0052CF44 /* SongsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongsViewController.swift; sourceTree = "<group>"; };
+		A680947E1FCE33F800F5EC45 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
+		A68094801FCE341100F5EC45 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		A6BF88D21F88801F00F059C1 /* Listen.Moe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Listen.Moe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6BF88D51F88802000F059C1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A6BF88D71F88802000F059C1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -80,6 +84,8 @@
 				A6BF88D51F88802000F059C1 /* AppDelegate.swift */,
 				A6BF88D71F88802000F059C1 /* ViewController.swift */,
 				A6BF88D91F88802000F059C1 /* Main.storyboard */,
+				A680947E1FCE33F800F5EC45 /* ResetPasswordViewController.swift */,
+				A68094801FCE341100F5EC45 /* RegisterViewController.swift */,
 				A651ED4D1FC5213D0052CF44 /* SongsViewController.swift */,
 				A60686DE1FBFDE3E00908563 /* FavoritesViewController.swift */,
 				A6E43B1C1FBE9EB000C514E1 /* LoginViewController.swift */,
@@ -237,9 +243,11 @@
 				A6E43B1D1FBE9EB000C514E1 /* LoginViewController.swift in Sources */,
 				A651ED4E1FC5213D0052CF44 /* SongsViewController.swift in Sources */,
 				A6BF88DE1F88802000F059C1 /* Listen_Moe.xcdatamodeld in Sources */,
+				A68094811FCE341100F5EC45 /* RegisterViewController.swift in Sources */,
 				A6BF88D81F88802000F059C1 /* ViewController.swift in Sources */,
 				A60686DF1FBFDE3E00908563 /* FavoritesViewController.swift in Sources */,
 				A6BF88D61F88802000F059C1 /* AppDelegate.swift in Sources */,
+				A680947F1FCE33F800F5EC45 /* ResetPasswordViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

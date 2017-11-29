@@ -18,7 +18,7 @@ class RegisterViewController: UIViewController {
         if username.text != "" && password.text != "" && email.text != ""{
             register(username: username.text!, password: password.text!, email:email.text!)
         } else {
-            errorMsg.text = "You didn't enter emough stuff..."
+            errorMsg.text = "You didn't enter enough stuff..."
             errorMsg.isHidden = false
         }
     }
@@ -26,7 +26,8 @@ class RegisterViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.errorMsg.isHidden = true; self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.errorMsg.isHidden = true
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.view.backgroundColor = UIColor.clear

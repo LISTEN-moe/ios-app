@@ -14,19 +14,23 @@ struct Response: Codable {
 
 class LoginViewController: UIViewController {
     
-    @IBOutlet weak var invalid: UILabel!
+    @IBOutlet weak var errorMsg: UILabel!
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var password: UITextField!
     
     @IBAction func loginBtn(_ sender: Any) {
         if username.text != "" && password.text != "" {
             login(username: username.text!, password: password.text!)
+        } else {
+            errorMsg.text = "You didn't enter emough stuff..."
+            errorMsg.isHidden = false
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        self.errorMsg.isHidden = true;
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
@@ -65,12 +69,13 @@ class LoginViewController: UIViewController {
                 let userDefaults = UserDefaults.standard
                 userDefaults.set(info?.token, forKey: "token")
                 DispatchQueue.main.async() { () -> Void in
-                    self.invalid.isHidden = true;
+                    self.errorMsg.isHidden = true;
                     self.goAwayLogin()
                 }
             } else {
                 DispatchQueue.main.async() { () -> Void in
-                    self.invalid.isHidden = false;
+                    self.errorMsg.text = "Oops something went wrong"
+                    self.errorMsg.isHidden = false;
                 }
             }
         }

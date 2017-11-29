@@ -60,13 +60,18 @@ class ResetPasswordViewController: UIViewController {
             print("responseString = \(responseString)")
             
             let info = try? JSONDecoder().decode(Response.self, from: data)
+            
             if info?.success == true {
                 self.errorMsg.text = "Please check your Email"
                 self.errorMsg.isHidden = false;
             } else {
                 DispatchQueue.main.async() { () -> Void in
+                    let error = info?.message!
                     self.errorMsg.text = "Oops something went wrong..."
                     self.errorMsg.isHidden = false;
+                    let alert = UIAlertController(title: "Oops", message: error, preferredStyle: UIAlertControllerStyle.alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
                 }
             }
         }

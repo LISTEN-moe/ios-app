@@ -9,7 +9,8 @@ import UIKit
 
 struct Response: Codable {
     var success: Bool
-    var token: String
+    var token: String?
+    var message: String?
 }
 
 class LoginViewController: UIViewController {

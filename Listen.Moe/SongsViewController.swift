@@ -11,14 +11,7 @@ class SongsViewController: UIViewController , UITableViewDelegate, UITableViewDa
     
     
     var letters:[String] = []
-    
     var songs:[song] = []
-    
-    struct section {
-        var name:String
-        var songList:[song]
-    }
-    
     var songSections:[section] = []
     
     @IBOutlet weak var tableView: UITableView!

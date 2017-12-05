@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A60686DF1FBFDE3E00908563 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60686DE1FBFDE3E00908563 /* FavoritesViewController.swift */; };
+		A61B91441FD6189100320266 /* JSONStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61B91431FD6189100320266 /* JSONStructures.swift */; };
 		A651ED4E1FC5213D0052CF44 /* SongsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A651ED4D1FC5213D0052CF44 /* SongsViewController.swift */; };
 		A680947F1FCE33F800F5EC45 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A680947E1FCE33F800F5EC45 /* ResetPasswordViewController.swift */; };
 		A68094811FCE341100F5EC45 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68094801FCE341100F5EC45 /* RegisterViewController.swift */; };
@@ -25,6 +26,7 @@
 		6C346C6BD45D492106E4B314 /* Pods-Listen.Moe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Listen.Moe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Listen.Moe/Pods-Listen.Moe.debug.xcconfig"; sourceTree = "<group>"; };
 		6E3EAA2DAF0DB44172DABFBA /* Pods-Listen.Moe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Listen.Moe.release.xcconfig"; path = "Pods/Target Support Files/Pods-Listen.Moe/Pods-Listen.Moe.release.xcconfig"; sourceTree = "<group>"; };
 		A60686DE1FBFDE3E00908563 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
+		A61B91431FD6189100320266 /* JSONStructures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONStructures.swift; sourceTree = "<group>"; };
 		A651ED4D1FC5213D0052CF44 /* SongsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongsViewController.swift; sourceTree = "<group>"; };
 		A680947E1FCE33F800F5EC45 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		A68094801FCE341100F5EC45 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 				A6BF88D91F88802000F059C1 /* Main.storyboard */,
 				A680947E1FCE33F800F5EC45 /* ResetPasswordViewController.swift */,
 				A68094801FCE341100F5EC45 /* RegisterViewController.swift */,
+				A61B91431FD6189100320266 /* JSONStructures.swift */,
 				A651ED4D1FC5213D0052CF44 /* SongsViewController.swift */,
 				A60686DE1FBFDE3E00908563 /* FavoritesViewController.swift */,
 				A6E43B1C1FBE9EB000C514E1 /* LoginViewController.swift */,
@@ -248,6 +251,7 @@
 				A60686DF1FBFDE3E00908563 /* FavoritesViewController.swift in Sources */,
 				A6BF88D61F88802000F059C1 /* AppDelegate.swift in Sources */,
 				A680947F1FCE33F800F5EC45 /* ResetPasswordViewController.swift in Sources */,
+				A61B91441FD6189100320266 /* JSONStructures.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

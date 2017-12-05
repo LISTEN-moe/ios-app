@@ -10,47 +10,6 @@ import AVKit
 import AVFoundation
 import Starscream
 
-struct Base: Decodable {
-    let song_id: Int?
-    let artist_name: String?
-    let song_name: String?
-    let anime_name: String?
-    let requested_by: String?
-    let listeners: Int?
-    //not working for some reason
-    //let last: [Last]
-    //let second_last: [Second]
-    //let extended: [Extended]
-}
-
-struct Last: Decodable {
-    let song_name: String?
-    let artist_name: String?
-}
-
-struct Second: Decodable {
-    let song_name: String?
-    let artist_name: String?
-}
-
-struct Extended: Decodable {
-    let favorite: Bool?
-    let queue: [Queue]
-}
-
-struct Queue: Decodable {
-    let songsInQueue: Int?
-    let hasSongInQueue: Bool?
-    let inQueueBeforeUserSong: Int?
-    let userSongsInQueue: Int?
-}
-
-struct user: Decodable {
-    let success: Bool
-    let id: Int
-    let username: String
-}
-
 class ViewController: UIViewController {
     
     var base:Base?

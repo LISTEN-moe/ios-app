@@ -7,53 +7,6 @@
 
 import UIKit
 
-struct favorite: Codable {
-    var success:Bool
-    var songs:[song]?
-    var extra:extra?
-}
-
-struct song: Codable {
-    var id:Int
-    var artist:String
-    var title:String
-    var anime:String?
-    var enabled:Bool?
-    var titleFirstLetter:String{
-        if self.title != "" {
-            let str = String(self.title[self.title.startIndex]).uppercased().unicodeScalars.first
-            let alpha = CharacterSet(charactersIn: "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-            let digits = CharacterSet.decimalDigits
-            if digits.contains(str!) {
-                return "1"
-            }
-            else if alpha.contains(str!) {
-                return String(self.title[self.title.startIndex]).uppercased()
-            } else {
-                return "*"
-            }
-        } else {
-            return ""
-        }
-    }
-//    var artistFirstLetter:String{
-//        return String(self.artist[self.artist.startIndex]).uppercased()
-//    }
-}
-
-struct extra:Codable {
-    var requests:Int
-}
-
-struct unfavorite: Codable {
-    var success:Bool
-    var favorite:Bool
-}
-
-struct songRequest: Codable {
-    var success:Bool
-}
-
 class FavoritesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var letters:[String] = []

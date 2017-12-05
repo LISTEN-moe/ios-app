@@ -16,12 +16,12 @@ To Install:
   
   3. Select your iPhone from the drop down menu. 
   <p align="center">
-    <img src="https://i.imgur.com/IA3spi5.png?1 width="250"/>
+    <img src="https://i.imgur.com/cVTRU2p.png"/>
   </p>
   
   4. Click the run button.
   <p align="center">
-    <img src="https://i.imgur.com/ipC6cJk.png" width="350"/>
+    <img src="https://i.imgur.com/pmQqWVO.png"/>
   </p>
   
   

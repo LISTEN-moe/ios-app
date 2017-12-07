@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ResetPasswordViewController: UIViewController {
+class ResetPasswordViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var errorMsg: UILabel!
     @IBOutlet weak var emailAddress: UITextField!
@@ -30,6 +30,9 @@ class ResetPasswordViewController: UIViewController {
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.view.backgroundColor = UIColor.clear
         self.navigationController?.navigationBar.tintColor = UIColor(red: 234/255, green: 33/255, blue: 88/255, alpha: 1.0)
+        
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
+        emailAddress.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -82,7 +85,11 @@ class ResetPasswordViewController: UIViewController {
         let _ = self.navigationController?.popViewController(animated: true)
     }
     
-
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
     /*
     // MARK: - Navigation
 

@@ -8,18 +8,24 @@ A Swift iOS app that uses [Starscream](https://github.com/daltoniam/Starscream)
 
 ### Prerequisites
 - A Mac or VM with XCode installed
+- An iPhone with at least iOS 8.0
+- CocoaPods
 
 To Install:
-  1. Download or clone the project and open it in Xcode.
+  1. Download or clone the project.
   
-  2. Connect iPhone via USB or [wifi](https://help.apple.com/xcode/mac/9.0/index.html?localePath=en.lproj#/devbc48d1bad).
+  2. In terminal navigate to the project's directory and run 'pod install'.
   
-  3. Select your iPhone from the drop down menu. 
+  3. Open the project from the Listen.Moe.xcworkspace. If you open it from Listen.Moe.xcodeproj then the project won't compile.
+  
+  4. Connect iPhone via USB or [wifi](https://help.apple.com/xcode/mac/9.0/index.html?localePath=en.lproj#/devbc48d1bad).
+  
+  5. Select your iPhone from the drop down menu. 
   <p align="center">
     <img src="https://i.imgur.com/cVTRU2p.png"/>
   </p>
   
-  4. Click the run button.
+  6. Click the run button.
   <p align="center">
     <img src="https://i.imgur.com/pmQqWVO.png"/>
   </p>

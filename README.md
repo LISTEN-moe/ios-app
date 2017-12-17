@@ -4,7 +4,7 @@
 
 A Swift iOS app that uses [Starscream](https://github.com/daltoniam/Starscream)
 
-## Installation
+## Installation - (In progress, some steps may be missing at the moment.)
 
 ### Prerequisites
 - A Mac or VM with XCode installed

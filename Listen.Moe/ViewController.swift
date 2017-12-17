@@ -75,12 +75,12 @@ class ViewController: UIViewController {
         if (playing){
             player.pause()
             playing = false
-            playBtn.setImage(#imageLiteral(resourceName: "play"), for: .normal)
+            playBtn.setImage(#imageLiteral(resourceName: "Play"), for: .normal)
         }
         else{
             player.play()
             playing = true
-            playBtn.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
+            playBtn.setImage(#imageLiteral(resourceName: "Pause"), for: .normal)
         }
     }
     

@@ -162,9 +162,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MF2-pG-nnG">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MF2-pG-nnG">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="n4P-s2-Z1d" detailTextLabel="AqV-Cn-qsz" style="IBUITableViewCellStyleSubtitle" id="fr2-nn-QOx">
@@ -195,6 +194,12 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="MF2-pG-nnG" firstAttribute="leading" secondItem="Vyh-Pf-aw9" secondAttribute="leading" id="2lc-Oe-yd2"/>
+                            <constraint firstItem="MF2-pG-nnG" firstAttribute="top" secondItem="fvQ-lx-HTp" secondAttribute="bottom" id="2zS-Z7-WkJ"/>
+                            <constraint firstAttribute="trailing" secondItem="MF2-pG-nnG" secondAttribute="trailing" id="MHp-W7-Q38"/>
+                            <constraint firstItem="P8M-PB-FHL" firstAttribute="top" secondItem="MF2-pG-nnG" secondAttribute="bottom" id="nfa-7s-GEj"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="MF2-pG-nnG" id="bdL-Dc-RqY"/>
@@ -216,9 +221,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="AiA-Gd-TuQ">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="AiA-Gd-TuQ">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="6Ug-h3-E28" detailTextLabel="lg9-4F-kAH" style="IBUITableViewCellStyleSubtitle" id="QXI-pl-wbC">
@@ -249,6 +253,12 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="AiA-Gd-TuQ" secondAttribute="trailing" id="ESj-MN-1Rr"/>
+                            <constraint firstItem="AiA-Gd-TuQ" firstAttribute="leading" secondItem="Jo4-yW-nn9" secondAttribute="leading" id="JbT-ov-kAw"/>
+                            <constraint firstItem="RqU-Xa-DIN" firstAttribute="top" secondItem="AiA-Gd-TuQ" secondAttribute="bottom" id="Wrb-j3-6dN"/>
+                            <constraint firstItem="AiA-Gd-TuQ" firstAttribute="top" secondItem="pfa-WF-Nbm" secondAttribute="bottom" id="hbx-Ct-2yK"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="tableView" destination="AiA-Gd-TuQ" id="d7s-aC-efz"/>

@@ -54,12 +54,12 @@ class ResetPasswordViewController: UIViewController, UITextFieldDelegate {
             
             if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
                 print("statusCode should be 200, but is \(httpStatus.statusCode)")
-                print("response = \(response)")
+//                print("response = \(response)")
                 
             }
             
-            let responseString = String(data: data, encoding: .utf8)
-            print("responseString = \(responseString)")
+//            let responseString = String(data: data, encoding: .utf8)
+//            print("responseString = \(responseString)")
             
             let info = try? JSONDecoder().decode(Response.self, from: data)
             

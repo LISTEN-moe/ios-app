@@ -40,20 +40,20 @@ class ViewController: UIViewController {
                 request.httpBody = postString.data(using: .utf8)
                 request.httpMethod = "POST"
                 let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                    guard let data = data, error == nil else {                                                 // check for fundamental networking error
+                    guard let _/*data*/ = data, error == nil else {                                                 // check for fundamental networking error
                         print(error?.localizedDescription as Any)
                         return
                     }
                     
                     if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
                         print("statusCode should be 200, but is \(httpStatus.statusCode)")
-                        print("response = \(response)")
+//                        print("response = \(response)")
                         
                     }
-                    let responseString = String(data: data, encoding: .utf8)
-                    print("responseString = \(responseString)")
+//                    let responseString = String(data: data, encoding: .utf8)
+//                    print("responseString = \(responseString)")
                     
-                    let info = try? JSONDecoder().decode(Response.self, from: data)
+//                    let info = try? JSONDecoder().decode(Response.self, from: data)
                 }
                 task.resume()
             }
@@ -111,7 +111,7 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         
         UIApplication.shared.statusBarStyle = .lightContent
-        let userDefaults = UserDefaults.standard
+//        let userDefaults = UserDefaults.standard
         stillLoggedIn()
     }
     
@@ -150,7 +150,7 @@ class ViewController: UIViewController {
                     print("response = \(String(describing: response))")
                 }
                 //
-                            let responseString = String(data: data, encoding: .utf8)
+//                            let responseString = String(data: data, encoding: .utf8)
 //                            print("asdasjdnakfjadsfasjbfasjdfas")
 //                            print("responseString = \(responseString)")
                 let base = try? JSONDecoder().decode(user.self, from:data)
@@ -208,7 +208,7 @@ extension ViewController : WebSocketDelegate {
 //            print(base)
             SongTitle.text = base?.song_name
             Artist.text = base?.artist_name
-        } catch let jsonError {
+        } catch /*let jsonError*/ {
 //            print(text)
 //            print("JSON Error: ", jsonError)
         }

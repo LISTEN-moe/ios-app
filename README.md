@@ -1,3 +1,4 @@
+<h1 align ="center"> Most features are currently unworking due to an API update. They will be sorted out in between my university studies.</h1>
 <h1 align ="center"> LISTEN.moe iOS app</h1>
 
 ## About

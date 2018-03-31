@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var rightBtn: UIBarButtonItem!
     
-    var socket = WebSocket(url: URL(string: "wss://listen.moe/api/v2/socket")!)
+    var socket = WebSocket(url: URL(string: "wss://listen.moe/gateway")!)
     var player = AVPlayer()
     var playing:Bool = false
     
@@ -30,34 +30,34 @@ class ViewController: UIViewController {
     @IBOutlet weak var favorite: UIButton!
     
     @IBAction func favBtn(_ sender: Any) {
-        var request = URLRequest(url: URL(string: "https://listen.moe/api/songs/favorite")!)
-        request.httpMethod = "POST"
-        let userDefaults = UserDefaults.standard
-        if let token = userDefaults.object(forKey: "token") as? String {
-            if let song = base?.song_id {
-                let postString = "token=\(token)&song=\(song)"
-                print(postString)
-                request.httpBody = postString.data(using: .utf8)
-                request.httpMethod = "POST"
-                let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                    guard let _/*data*/ = data, error == nil else {                                                 // check for fundamental networking error
-                        print(error?.localizedDescription as Any)
-                        return
-                    }
-                    
-                    if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
-                        print("statusCode should be 200, but is \(httpStatus.statusCode)")
-//                        print("response = \(response)")
-                        
-                    }
-//                    let responseString = String(data: data, encoding: .utf8)
-//                    print("responseString = \(responseString)")
-                    
-//                    let info = try? JSONDecoder().decode(Response.self, from: data)
-                }
-                task.resume()
-            }
-        }
+//        var request = URLRequest(url: URL(string: "https://listen.moe/api/songs/favorite")!)
+//        request.httpMethod = "POST"
+//        let userDefaults = UserDefaults.standard
+//        if let token = userDefaults.object(forKey: "token") as? String {
+//            if let song = base?.song_id {
+//                let postString = "token=\(token)&song=\(song)"
+//                print(postString)
+//                request.httpBody = postString.data(using: .utf8)
+//                request.httpMethod = "POST"
+//                let task = URLSession.shared.dataTask(with: request) { data, response, error in
+//                    guard let _/*data*/ = data, error == nil else {                                                 // check for fundamental networking error
+//                        print(error?.localizedDescription as Any)
+//                        return
+//                    }
+//
+//                    if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
+//                        print("statusCode should be 200, but is \(httpStatus.statusCode)")
+////                        print("response = \(response)")
+//
+//                    }
+////                    let responseString = String(data: data, encoding: .utf8)
+////                    print("responseString = \(responseString)")
+//
+////                    let info = try? JSONDecoder().decode(Response.self, from: data)
+//                }
+//                task.resume()
+//            }
+//        }
     }
     
     @IBAction func logoutBtn(_ sender: Any) {
@@ -87,8 +87,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 //         Do any additional setup after loading the view, typically from a nib.
-        socket.delegate = self
-        socket.connect()
+//        socket.delegate = self
+//        socket.connect()
         prepareAudio()
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
@@ -134,38 +134,58 @@ class ViewController: UIViewController {
         }
     }
     
+    
     func stillLoggedIn() {
         let userDefaults = UserDefaults.standard
-        if let token = userDefaults.object(forKey: "token") as? String {
-            var request = URLRequest(url: (URL(string: "https://listen.moe/api/user?token=\(token)"))!)
-            request.httpMethod = "GET"
-            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                guard let data = data, error == nil else {                                                 // check for fundamental networking error
-                    print(error?.localizedDescription as Any)
-                    return
-                }
-                
-                if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
-                    print("statusCode should be 200, but is \(httpStatus.statusCode)")
-                    print("response = \(String(describing: response))")
-                }
-                //
-//                            let responseString = String(data: data, encoding: .utf8)
-//                            print("asdasjdnakfjadsfasjbfasjdfas")
-//                            print("responseString = \(responseString)")
-                let base = try? JSONDecoder().decode(user.self, from:data)
-                
-                DispatchQueue.main.async() { () -> Void in
-                    if (base?.success)! {
-                            self.loggedInUI(log: true)
-                    } else {
-                        self.loggedInUI(log: false)
-                    }
-                }
+        if (userDefaults.object(forKey: "token") as? String) != nil {
+            self.loggedInUI(log: true)
+        } else {
+            DispatchQueue.main.async() { () -> Void in
+                self.loggedInUI(log: false)
             }
-            task.resume()
         }
     }
+    
+    //depreciated bit but keeping to reference
+//    func stillLoggedIn() {
+//        let userDefaults = UserDefaults.standard
+//        if let token = userDefaults.object(forKey: "token") as? String {
+//            var request = URLRequest(url: (URL(string: "https://listen.moe/api/user?token=\(token)"))!)
+//            request.httpMethod = "GET"
+//            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+//                guard let data = data, error == nil else {                                                 // check for fundamental networking error
+//                    print(error?.localizedDescription as Any)
+//                    return
+//                }
+//
+//                if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
+//                    print("statusCode should be 200, but is \(httpStatus.statusCode)")
+////                    print("response = \(String(describing: response))")
+//                    if httpStatus.statusCode == 401 {
+//                        DispatchQueue.main.async() { () -> Void in
+//                            self.loggedInUI(log: false)
+//                        }
+//                    }
+//                }
+//                //
+////                            let responseString = String(data: data, encoding: .utf8)
+////                            print("asdasjdnakfjadsfasjbfasjdfas")
+////                            print("responseString = \(responseString)")
+//                else {
+//                    let base = try? JSONDecoder().decode(user.self, from:data)
+//
+//                    DispatchQueue.main.async() { () -> Void in
+//                        if (base?.success)! {
+//                            self.loggedInUI(log: true)
+//                        } else {
+//                            self.loggedInUI(log: false)
+//                        }
+//                    }
+//                }
+//            }
+//            task.resume()
+//        }
+//    }
     
     deinit {
         socket.disconnect(forceTimeout: 0)
@@ -193,6 +213,12 @@ class ViewController: UIViewController {
 
 extension ViewController : WebSocketDelegate {
     func websocketDidConnect(socket: WebSocketClient) {
+        let auth = ["Auth": ""]
+        let body = ["OP": 0, "D": auth] as [String : Any]
+        let json = try? JSONSerialization.data(withJSONObject: body)
+        socket.write(data: json!) {
+            print("kana is butt")
+        }
         print("websocket is connected")
     }
     
@@ -204,6 +230,7 @@ extension ViewController : WebSocketDelegate {
     func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
         do {
             //for some reason cant decode arrays sees them as dictionarys
+            print(text.data)
             base = try JSONDecoder().decode(Base.self, from: text.data(using: .utf8)!)
 //            print(base)
             SongTitle.text = base?.song_name

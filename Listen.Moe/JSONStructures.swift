@@ -61,9 +61,9 @@ struct songRequest: Codable {
 }
 
 struct Response: Codable {
-    var success: Bool
-    var token: String?
     var message: String?
+    var token: String?
+//    var success: Bool
 }
 
 struct Base: Decodable {

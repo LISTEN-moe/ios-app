@@ -46,10 +46,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     func login(username:String, password:String){
         
-        var request = URLRequest(url: URL(string: "https://listen.moe/api/authenticate")!)
+        let parameters = ["username": username, "password": password]
+        let jsonBody = try? JSONSerialization.data(withJSONObject: parameters)
+        let headers = ["Content-Type": "application/json", "Accept": "application/vnd.listen.v4+json"]
+        
+        var request = URLRequest(url: URL(string: "https://listen.moe/api/login")!)
+        
         request.httpMethod = "POST"
-        let postString = "username=\(username)&password=\(password)"
-        request.httpBody = postString.data(using: .utf8)
+        for (key, value) in headers {
+            request.setValue(value, forHTTPHeaderField: key)
+        }
+//        let postString = "username=\(username)&password=\(password)"
+//        request.httpBody = postString.data(using: .utf8)
+        request.httpBody = jsonBody
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard let data = data, error == nil else {                                                 // check for fundamental networking error
                 print(error?.localizedDescription as Any)
@@ -66,9 +75,10 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
 //            print("responseString = \(responseString)")
             
             let info = try? JSONDecoder().decode(Response.self, from: data)
-            if info?.success == true {
+            if info?.message == "Successfully logged in." {
                 let userDefaults = UserDefaults.standard
                 userDefaults.set(info?.token, forKey: "token")
+                userDefaults.set(username, forKey: "username")
                 DispatchQueue.main.async() { () -> Void in
                     self.errorMsg.isHidden = true;
                     self.goAwayLogin()

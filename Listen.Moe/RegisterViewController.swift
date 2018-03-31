@@ -65,10 +65,10 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
 //            print("responseString = \(responseString)")
             
             let info = try? JSONDecoder().decode(Response.self, from: data)
-            if info?.success == true {
+//            if info?.success == true {
                 self.errorMsg.text = "Please check your Email"
                 self.errorMsg.isHidden = false;
-            } else {
+//            } else {
                 DispatchQueue.main.async() { () -> Void in
                     let error = info?.message!
                     self.errorMsg.text = "Oops something went wrong..."
@@ -76,7 +76,7 @@ class RegisterViewController: UIViewController, UITextFieldDelegate {
                     let alert = UIAlertController(title: "Oops", message: error, preferredStyle: UIAlertControllerStyle.alert)
                     alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
                     self.present(alert, animated: true, completion: nil)
-                }
+//                }
             }
         }
         task.resume()

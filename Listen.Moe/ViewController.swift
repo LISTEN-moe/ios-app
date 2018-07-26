@@ -233,8 +233,8 @@ extension ViewController : WebSocketDelegate {
             print(text.data)
             base = try JSONDecoder().decode(Base.self, from: text.data(using: .utf8)!)
 //            print(base)
-            SongTitle.text = base?.song_name
-            Artist.text = base?.artist_name
+//            SongTitle.text = base?.song_name
+//            Artist.text = base?.artist_name
         } catch /*let jsonError*/ {
 //            print(text)
 //            print("JSON Error: ", jsonError)

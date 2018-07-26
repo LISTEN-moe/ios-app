@@ -11,8 +11,13 @@ class SongsViewController: UIViewController , UITableViewDelegate, UITableViewDa
     
     
     var letters:[String] = []
-    var songs:[song] = []
+    var songs:[favorite] = []
     var songSections:[section] = []
+    
+    struct section {
+        var name:String
+        var songList:[favorite]
+    }
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -36,7 +41,7 @@ class SongsViewController: UIViewController , UITableViewDelegate, UITableViewDa
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let song = songSections[indexPath.section].songList[indexPath.row]
         cell.textLabel?.text = song.title
-        cell.detailTextLabel?.text = song.artist
+//        cell.detailTextLabel?.text = song.artist
         return cell
     }
     
@@ -75,7 +80,7 @@ class SongsViewController: UIViewController , UITableViewDelegate, UITableViewDa
         UIApplication.shared.statusBarStyle = .default
     }
     
-    func requestSong( song:song) {
+    func requestSong( song:favorite) {
         var request = URLRequest(url: URL(string: "https://listen.moe/api/songs/request")!)
         request.httpMethod = "POST"
         let userDefaults = UserDefaults.standard
@@ -122,20 +127,18 @@ class SongsViewController: UIViewController , UITableViewDelegate, UITableViewDa
                 //
                 //            let responseString = String(data: data, encoding: .utf8)
                 //            print("responseString = \(responseString)")
-                let base = try? JSONDecoder().decode(favorite.self, from:data)
+                let base = try? JSONDecoder().decode(favorites.self, from:data)
                 
-                if (base?.success)! {
-                    
-                    
+                if (base?.message == "Successfully retrieved favorites.") {
                     //get first letters
-                    let letters = (base?.songs)!.map{ $0.titleFirstLetter}
+                    let letters = (base?.favorite)!.map{ $0.titleFirstLetter}
                     //remove duplicates
                     let unique = Array(Set(letters))
                     //sort
                     self.letters = unique.sorted()
                     
-                    self.songs = (base?.songs)!.sorted(by: {$0.title < $1.title})
-                    
+                    self.songs = (base?.favorite)!.sorted(by: {$0.title < $1.title})
+
                     for (key) in self.letters {
                         print(key)
                         let songs = self.songs.filter{$0.titleFirstLetter == key}

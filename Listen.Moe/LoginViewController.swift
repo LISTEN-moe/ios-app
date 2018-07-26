@@ -6,8 +6,7 @@
 //
 
 import UIKit
-
-
+import Alamofire
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
@@ -46,53 +45,85 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     func login(username:String, password:String){
         
-        let parameters = ["username": username, "password": password]
-        let jsonBody = try? JSONSerialization.data(withJSONObject: parameters)
-        let headers = ["Content-Type": "application/json", "Accept": "application/vnd.listen.v4+json"]
-        
-        var request = URLRequest(url: URL(string: "https://listen.moe/api/login")!)
-        
-        request.httpMethod = "POST"
-        for (key, value) in headers {
-            request.setValue(value, forHTTPHeaderField: key)
-        }
-//        let postString = "username=\(username)&password=\(password)"
-//        request.httpBody = postString.data(using: .utf8)
-        request.httpBody = jsonBody
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data, error == nil else {                                                 // check for fundamental networking error
-                print(error?.localizedDescription as Any)
-                return
-            }
-            
-            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
-                print("statusCode should be 200, but is \(httpStatus.statusCode)")
-//                print("response = \(response)")
-                
-            }
-            
-//            let responseString = String(data: data, encoding: .utf8)
-//            print("responseString = \(responseString)")
-            
-            let info = try? JSONDecoder().decode(Response.self, from: data)
-            if info?.message == "Successfully logged in." {
-                let userDefaults = UserDefaults.standard
-                userDefaults.set(info?.token, forKey: "token")
-                userDefaults.set(username, forKey: "username")
-                DispatchQueue.main.async() { () -> Void in
-                    self.errorMsg.isHidden = true;
-                    self.goAwayLogin()
+        let headers = ["Content-Type": "application/json",
+                       "Accept": "application/vnd.listen.v4+json"]
+        let parameters: Parameters = ["username": username,
+                                      "password": password]
+        Alamofire.request("https://listen.moe/api/login", method: .post, parameters: parameters, encoding : JSONEncoding.default, headers: headers).responseJSON { response in
+            switch response.result {
+            case .success:
+                print("Validation Successful")
+                let info = try? JSONDecoder().decode(Login.self, from: response.data!)
+                if info?.message == "Successfully logged in." {
+                    let userDefaults = UserDefaults.standard
+                    userDefaults.set(info?.token, forKey: "token")
+                    userDefaults.set(username, forKey: "username")
+                    DispatchQueue.main.async() { () -> Void in
+                        self.errorMsg.isHidden = true;
+                        self.goAwayLogin()
+                    }
+                } else {
+                    DispatchQueue.main.async() { () -> Void in
+                        self.errorMsg.text = "Oops something went wrong"
+                        self.errorMsg.isHidden = false;
+                    }
                 }
-            } else {
-                DispatchQueue.main.async() { () -> Void in
-                    self.errorMsg.text = "Oops something went wrong"
-                    self.errorMsg.isHidden = false;
-                }
+            case .failure(let error):
+                print(error)
             }
         }
-        task.resume()
-        
+
     }
+    
+//    func login(username:String, password:String){
+//
+//        let parameters = ["username": username, "password": password]
+//        let jsonBody = try? JSONSerialization.data(withJSONObject: parameters)
+//        let headers = ["Content-Type": "application/json", "Accept": "application/vnd.listen.v4+json"]
+//
+//        var request = URLRequest(url: URL(string: "https://listen.moe/api/login")!)
+//
+//        request.httpMethod = "POST"
+//        for (key, value) in headers {
+//            request.setValue(value, forHTTPHeaderField: key)
+//        }
+////        let postString = "username=\(username)&password=\(password)"
+////        request.httpBody = postString.data(using: .utf8)
+//        request.httpBody = jsonBody
+//        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+//            guard let data = data, error == nil else {                                                 // check for fundamental networking error
+//                print(error?.localizedDescription as Any)
+//                return
+//            }
+//
+//            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
+//                print("statusCode should be 200, but is \(httpStatus.statusCode)")
+////                print("response = \(response)")
+//
+//            }
+//
+////            let responseString = String(data: data, encoding: .utf8)
+////            print("responseString = \(responseString)")
+//
+//            let info = try? JSONDecoder().decode(Response.self, from: data)
+//            if info?.message == "Successfully logged in." {
+//                let userDefaults = UserDefaults.standard
+//                userDefaults.set(info?.token, forKey: "token")
+//                userDefaults.set(username, forKey: "username")
+//                DispatchQueue.main.async() { () -> Void in
+//                    self.errorMsg.isHidden = true;
+//                    self.goAwayLogin()
+//                }
+//            } else {
+//                DispatchQueue.main.async() { () -> Void in
+//                    self.errorMsg.text = "Oops something went wrong"
+//                    self.errorMsg.isHidden = false;
+//                }
+//            }
+//        }
+//        task.resume()
+//
+//    }
     
     func goAwayLogin () {
         let _ = self.navigationController?.popViewController(animated: true)

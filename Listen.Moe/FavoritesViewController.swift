@@ -6,16 +6,16 @@
 //
 
 import UIKit
+import Alamofire
 
 class FavoritesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var letters:[String] = []
-    
-    var songs:[song] = []
+    var songs:[favorite] = []
     
     struct section {
         var name:String
-        var songList:[song]
+        var songList:[favorite]
     }
     
     var songSections:[section] = []
@@ -42,7 +42,7 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let song = songSections[indexPath.section].songList[indexPath.row]
         cell.textLabel?.text = song.title
-        cell.detailTextLabel?.text = song.artist
+//        cell.detailTextLabel?.text = song.artist
         return cell
     }
     
@@ -83,11 +83,11 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
                     
                     if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
                         print("statusCode should be 200, but is \(httpStatus.statusCode)")
-//                        print("response = \(response)")
+                        //                        print("response = \(response)")
                         
                     }
-//                    let responseString = String(data: data, encoding: .utf8)
-//                    print("responseString = \(responseString)")
+                    //                    let responseString = String(data: data, encoding: .utf8)
+                    //                    print("responseString = \(responseString)")
                     
                     let info = try? JSONDecoder().decode(unfavorite.self, from: data)
                     
@@ -101,7 +101,7 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
             }
         }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -120,8 +120,8 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
         super.viewWillAppear(true)
         UIApplication.shared.statusBarStyle = .default
     }
-
-    func requestSong( song:song) {
+    
+    func requestSong( song:favorite) {
         var request = URLRequest(url: URL(string: "https://listen.moe/api/songs/request")!)
         request.httpMethod = "POST"
         let userDefaults = UserDefaults.standard
@@ -139,11 +139,11 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
                 
                 if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
                     print("statusCode should be 200, but is \(httpStatus.statusCode)")
-//                    print("response = \(response)")
+                    //                    print("response = \(response)")
                     
                 }
-//                let responseString = String(data: data, encoding: .utf8)
-//                print("responseString = \(responseString)")
+                //                let responseString = String(data: data, encoding: .utf8)
+                //                print("responseString = \(responseString)")
                 
                 let info = try? JSONDecoder().decode(songRequest.self, from: data)
                 if info?.success == true {
@@ -155,75 +155,118 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
             task.resume()
         }
     }
-
+    
     func getFavorites(){
         let userDefaults = UserDefaults.standard
-        //        let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsInVzZXJuYW1lIjoiQ292ZSIsImlhdCI6MTUxMDk3MzMwNywiZXhwIjoxNTEzNTY1MzA3fQ.eKSgw5MntMJFFVOX99L-Wh6lbNphrUyICqYzKb3fros"
-        if let token = userDefaults.object(forKey: "token") as? String {
-            var request = URLRequest(url: URL(string: "https://listen.moe/api/user/favorites?token=\(token)")!)
-            request.httpMethod = "GET"
-            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                guard let data = data, error == nil else {                                                 // check for fundamental networking error
-                    print(error?.localizedDescription as Any)
-                    return
-                }
-                
-                if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
-                    print("statusCode should be 200, but is \(httpStatus.statusCode)")
-                    print("response = \(String(describing: response))")
-                }
-                //
-                //            let responseString = String(data: data, encoding: .utf8)
-                //            print("responseString = \(responseString)")
-                let base = try? JSONDecoder().decode(favorite.self, from:data)
-                if (base?.success)! {
-                    
-                    //get first letters
-                    let letters = (base?.songs)!.map{ $0.titleFirstLetter}
-                    //remove duplicates
-                    let unique = Array(Set(letters))
-                    //sort
-                    self.letters = unique.sorted()
-                    
-                    self.songs = (base?.songs)!.sorted(by: {$0.title < $1.title})
-                    
-                    for (key) in self.letters {
-                        print("sorting")
-                        let songs = self.songs.filter{$0.titleFirstLetter == key}
-                        let item = section(name: key, songList: songs)
-                        self.songSections.append(item)
-                    }
-                    
-                    DispatchQueue.main.async() { () -> Void in
-                        if self.songs.count == 0 {
+        if let username = userDefaults.object(forKey: "username") as? String {
+            if let token = userDefaults.object(forKey: "token") as? String {
+                let headers = ["Content-Type": "application/json",
+                               "Accept": "application/vnd.listen.v4+json",
+                               "Authorization": "Bearer \(token)"]
+                Alamofire.request("https://listen.moe/api/favorites/\(username)", encoding: JSONEncoding.default, headers: headers).responseJSON { response in
+                    switch response.result {
+                    case .success:
+                        let base = try? JSONDecoder().decode(favorites.self, from:response.data!)
+                        if (base?.message == "Successfully retrieved favorites.") {
+                            //get first letters
+                            let letters = (base?.favorite)!.map{ $0.titleFirstLetter}
+                            //remove duplicates
+                            let unique = Array(Set(letters))
+                            //sort
+                            self.letters = unique.sorted()
                             
-                            let alert = UIAlertController(title: "Oh", message: "You have no favorites yet", preferredStyle: UIAlertControllerStyle.alert)
-                            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-                            self.present(alert, animated: true, completion: nil)
+                            self.songs = (base?.favorite)!.sorted(by: {$0.title < $1.title})
+                            
+                            for (key) in self.letters {
+                                print("sorting")
+                                let songs = self.songs.filter{$0.titleFirstLetter == key}
+                                let item = section(name: key, songList: songs)
+                                self.songSections.append(item)
+                            }
+                            DispatchQueue.main.async() { () -> Void in
+                                if self.songs.count == 0 {
+                                    
+                                    let alert = UIAlertController(title: "Oh", message: "You have no favorites yet", preferredStyle: UIAlertControllerStyle.alert)
+                                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                                    self.present(alert, animated: true, completion: nil)
+                                }
+                                self.tableView.reloadData()
+                            }
                         }
-                        self.tableView.reloadData()
+                    case .failure(let error):
+                        print(error)
                     }
                 }
             }
-            task.resume()
         }
     }
-
+    //    func getFavorites(){
+    //        let userDefaults = UserDefaults.standard
+    //        if let token = userDefaults.object(forKey: "token") as? String {
+    //            var request = URLRequest(url: URL(string: "https://listen.moe/api/user/favorites?token=\(token)")!)
+    //            request.httpMethod = "GET"
+    //            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+    //                guard let data = data, error == nil else {                                                 // check for fundamental networking error
+    //                    print(error?.localizedDescription as Any)
+    //                    return
+    //                }
+    //
+    //                if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {           // check for http errors
+    //                    print("statusCode should be 200, but is \(httpStatus.statusCode)")
+    //                    print("response = \(String(describing: response))")
+    //                }
+    //                //
+    //                //            let responseString = String(data: data, encoding: .utf8)
+    //                //            print("responseString = \(responseString)")
+    //                let base = try? JSONDecoder().decode(favorite.self, from:data)
+    //                if (base?.success)! {
+    //
+    //                    //get first letters
+    //                    let letters = (base?.songs)!.map{ $0.titleFirstLetter}
+    //                    //remove duplicates
+    //                    let unique = Array(Set(letters))
+    //                    //sort
+    //                    self.letters = unique.sorted()
+    //
+    //                    self.songs = (base?.songs)!.sorted(by: {$0.title < $1.title})
+    //
+    //                    for (key) in self.letters {
+    //                        print("sorting")
+    //                        let songs = self.songs.filter{$0.titleFirstLetter == key}
+    //                        let item = section(name: key, songList: songs)
+    //                        self.songSections.append(item)
+    //                    }
+    //
+    //                    DispatchQueue.main.async() { () -> Void in
+    //                        if self.songs.count == 0 {
+    //
+    //                            let alert = UIAlertController(title: "Oh", message: "You have no favorites yet", preferredStyle: UIAlertControllerStyle.alert)
+    //                            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+    //                            self.present(alert, animated: true, completion: nil)
+    //                        }
+    //                        self.tableView.reloadData()
+    //                    }
+    //                }
+    //            }
+    //            task.resume()
+    //        }
+    //    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
-/*
- // MARK: - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
- // Get the new view controller using segue.destinationViewController.
- // Pass the selected object to the new view controller.
- }
- */
-
+    
+    
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
 
